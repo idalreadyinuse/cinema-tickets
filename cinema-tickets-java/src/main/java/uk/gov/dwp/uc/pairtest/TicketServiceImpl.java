@@ -1,5 +1,10 @@
 package uk.gov.dwp.uc.pairtest;
 
+import static uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type.ADULT;
+import static uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type.CHILD;
+import static uk.gov.dwp.uc.pairtest.validation.TicketServiceValidator.applyValidation;
+import static uk.gov.dwp.uc.pairtest.validation.TicketServiceValidator.validateSeating;
+
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -9,10 +14,9 @@ import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
-import uk.gov.dwp.uc.pairtest.validation.TicketServiceValidator;
 
 public class TicketServiceImpl implements TicketService {
-  /** Should only have private methods other than the one below. */
+
   private static final Logger LOGGER = Logger.getLogger(TicketServiceImpl.class.getName());
 
   private static final int ADULT_TICKET_COST = 20;
@@ -39,9 +43,9 @@ public class TicketServiceImpl implements TicketService {
                 Collectors.toMap(
                     TicketTypeRequest::getTicketType, TicketTypeRequest::getNoOfTickets));
 
-    TicketServiceValidator.applyValidation(accountId, ticketRequestMap);
+    applyValidation(accountId, ticketRequestMap);
 
-    int seatsToReserve = TicketServiceValidator.validateSeating(accountId, ticketRequestMap);
+    int seatsToReserve = validateSeating(ticketRequestMap);
 
     int cost = totalOrderValue(ticketRequestMap);
 
@@ -58,10 +62,10 @@ public class TicketServiceImpl implements TicketService {
     int totalCost = 0;
 
     for (Map.Entry<Type, Integer> tickets : ticketRequestMap.entrySet()) {
-      if (tickets.getKey() == Type.ADULT) {
+      if (tickets.getKey() == ADULT) {
         totalCost = totalCost + ADULT_TICKET_COST * tickets.getValue();
       }
-      if (tickets.getKey() == Type.CHILD) {
+      if (tickets.getKey() == CHILD) {
         totalCost = totalCost + CHILD_TICKET_COST * tickets.getValue();
       }
     }

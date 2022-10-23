@@ -13,8 +13,6 @@ import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 public class TicketServiceValidatorTest {
 
-  private static final Long ACCOUNT_ID = 123456L;
-
   @Test
   public void accountId_is_zero_should_throw_exception() {
 
@@ -58,7 +56,7 @@ public class TicketServiceValidatorTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () -> applyValidation(ACCOUNT_ID, ticketRequest));
+            () -> applyValidation(1234L, ticketRequest));
 
     assertTrue(thrown.getMessage().contains("Total tickets ordered exceeds maximum allowed: 20"));
   }
@@ -70,7 +68,7 @@ public class TicketServiceValidatorTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () -> validateSeating(ACCOUNT_ID, ticketRequest));
+            () -> validateSeating(ticketRequest));
 
     assertTrue(thrown.getMessage()
         .contains("Cannot purchase child or infant tickets without also purchasing an adult ticket"));
@@ -83,7 +81,7 @@ public class TicketServiceValidatorTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () -> validateSeating(ACCOUNT_ID, ticketRequest));
+            () -> validateSeating(ticketRequest));
 
     assertTrue(thrown.getMessage()
         .contains("Cannot purchase child or infant tickets without also purchasing an adult ticket"));
@@ -96,7 +94,7 @@ public class TicketServiceValidatorTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () -> validateSeating(ACCOUNT_ID, ticketRequest));
+            () -> validateSeating(ticketRequest));
 
     assertTrue(thrown.getMessage()
         .contains("Cannot purchase child or infant tickets without also purchasing an adult ticket"));
@@ -107,7 +105,7 @@ public class TicketServiceValidatorTest {
 
     Map<Type, Integer> ticketRequest = Map.of(Type.ADULT, 2, Type.CHILD, 4);
 
-    int seatsReserved = validateSeating(ACCOUNT_ID, ticketRequest);
+    int seatsReserved = validateSeating(ticketRequest);
 
     assertEquals(seatsReserved, 6);
   }
@@ -117,7 +115,7 @@ public class TicketServiceValidatorTest {
 
     Map<Type, Integer> ticketRequest = Map.of(Type.ADULT, 2, Type.CHILD, 2, Type.INFANT, 2);
 
-    int seatsReserved = validateSeating(ACCOUNT_ID, ticketRequest);
+    int seatsReserved = validateSeating(ticketRequest);
 
     assertEquals(seatsReserved, 4);
   }

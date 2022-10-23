@@ -160,7 +160,7 @@ public class TicketServiceImplTest {
     TicketTypeRequest childTicketRequest = new TicketTypeRequest(Type.CHILD, 2);
     TicketTypeRequest infantTicketRequest = new TicketTypeRequest(Type.INFANT, 1);
 
-    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest, infantTicketRequest );
+    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest, infantTicketRequest);
 
     verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 60);
     verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 4);
