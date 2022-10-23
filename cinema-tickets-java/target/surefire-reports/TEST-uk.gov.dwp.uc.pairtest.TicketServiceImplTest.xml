@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" time="0.27" errors="0" skipped="0">
+<testsuite tests="11" failures="0" name="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" time="0.339" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.11+9"/>
@@ -45,7 +45,7 @@
     <property name="java.class.path" value="/opt/apache_maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -63,15 +63,15 @@
     <property name="argLine" value="&quot;-Djavax.net.ssl.trustStore=/Users/simon.hindle/Documents/certificates/cacerts&quot;"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="one_adult_and_one_child_ticket_should_request_two_seats_with_cost_30" time="0.242"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="multiple_ticket_types_should_request_correct_seats_and_cost" time="0.004"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="total_tickets_ordered_over_20_should_throw_exception" time="0.002"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="one_adult_one_child_and_one_infant_ticket_should_request_two_seats_with_cost_30" time="0.005"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="accountId_less_than_zero_should_throw_exception" time="0.002"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="one_adult_and_one_child_ticket_should_request_two_seats_with_cost_30" time="0.305"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="multiple_ticket_types_should_request_correct_seats_and_cost" time="0.006"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="total_tickets_ordered_over_20_should_throw_exception" time="0.003"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="one_adult_one_child_and_one_infant_ticket_should_request_two_seats_with_cost_30" time="0.008"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="accountId_less_than_zero_should_throw_exception" time="0.001"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="child_and_infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.001"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.004"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="accountId_is_zero_should_throw_exception" time="0.001"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.002"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="accountId_is_zero_should_throw_exception" time="0.002"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="accountId_not_present_should_throw_exception" time="0.002"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="one_adult_ticket_should_request_one_seat_with_cost_20" time="0.005"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="child_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.002"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.TicketServiceImplTest" name="child_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.004"/>
 </testsuite>

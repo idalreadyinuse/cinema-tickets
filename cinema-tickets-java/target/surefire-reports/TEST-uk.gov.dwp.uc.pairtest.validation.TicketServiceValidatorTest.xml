@@ -45,7 +45,7 @@
     <property name="java.class.path" value="/opt/apache_maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -63,9 +63,9 @@
     <property name="argLine" value="&quot;-Djavax.net.ssl.trustStore=/Users/simon.hindle/Documents/certificates/cacerts&quot;"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="total_tickets_ordered_over_20_should_throw_exception" time="0.001"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="total_tickets_ordered_over_20_should_throw_exception" time="0"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="accountId_less_than_zero_should_throw_exception" time="0"/>
-  <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="child_and_infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0"/>
+  <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="child_and_infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0.001"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="infant_tickets_ordered_no_adult_tickets_should_throw_exception" time="0"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="accountId_is_zero_should_throw_exception" time="0"/>
   <testcase classname="uk.gov.dwp.uc.pairtest.validation.TicketServiceValidatorTest" name="accountId_not_present_should_throw_exception" time="0"/>
