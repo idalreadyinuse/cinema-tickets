@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,14 +28,6 @@ public class TicketServiceImplTest {
 
   private static final long ACCOUNT_ID = 123456L;
 
-  @Before
-  public void setUp() {
-    ticketService = new TicketServiceImpl(
-        this.ticketPaymentService,
-        this.seatReservationService
-    );
-  }
-
   @Test
   public void accountId_not_present_should_throw_exception() {
 
@@ -44,8 +35,7 @@ public class TicketServiceImplTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () ->
-                ticketService.purchaseTickets(null, ticketRequest));
+            () -> ticketService.purchaseTickets(null, ticketRequest));
 
     assertTrue(thrown.getMessage().contains("Account ID must be present and greater than zero"));
   }
@@ -57,8 +47,7 @@ public class TicketServiceImplTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () ->
-                ticketService.purchaseTickets(0L, ticketRequest));
+            () -> ticketService.purchaseTickets(0L, ticketRequest));
 
     assertTrue(thrown.getMessage().contains("Account ID must be present and greater than zero"));
   }
@@ -70,23 +59,9 @@ public class TicketServiceImplTest {
 
     InvalidPurchaseException thrown =
         assertThrows(InvalidPurchaseException.class,
-            () ->
-                ticketService.purchaseTickets(-1L, ticketRequest));
+            () -> ticketService.purchaseTickets(-1L, ticketRequest));
 
     assertTrue(thrown.getMessage().contains("Account ID must be present and greater than zero"));
-  }
-
-  @Test
-  public void valid_ticket_request_should_request_payment_and_reserve_seats() {
-
-    TicketTypeRequest adultTicketRequest = new TicketTypeRequest(Type.ADULT, 4);
-    TicketTypeRequest childTicketRequest = new TicketTypeRequest(Type.CHILD, 2);
-    TicketTypeRequest infantTicketRequest = new TicketTypeRequest(Type.INFANT, 2);
-
-    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest, infantTicketRequest );
-
-    verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 100);
-    verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 6);
   }
 
   @Test
@@ -140,5 +115,54 @@ public class TicketServiceImplTest {
 
     assertTrue(thrown.getMessage()
         .contains("Cannot purchase child or infant tickets without also purchasing an adult ticket"));
+  }
+
+  @Test
+  public void one_adult_ticket_should_request_one_seat_with_cost_20() {
+
+    TicketTypeRequest adultTicketRequest = new TicketTypeRequest(Type.ADULT, 1);
+
+    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest);
+
+    verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 20);
+    verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 1);
+  }
+
+  @Test
+  public void one_adult_and_one_child_ticket_should_request_two_seats_with_cost_30() {
+
+    TicketTypeRequest adultTicketRequest = new TicketTypeRequest(Type.ADULT, 1);
+    TicketTypeRequest childTicketRequest = new TicketTypeRequest(Type.CHILD, 1);
+
+    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest);
+
+    verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 30);
+    verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 2);
+  }
+
+  @Test
+  public void one_adult_one_child_and_one_infant_ticket_should_request_two_seats_with_cost_30() {
+
+    TicketTypeRequest adultTicketRequest = new TicketTypeRequest(Type.ADULT, 1);
+    TicketTypeRequest childTicketRequest = new TicketTypeRequest(Type.CHILD, 1);
+    TicketTypeRequest infantTicketRequest = new TicketTypeRequest(Type.INFANT, 1);
+
+    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest, infantTicketRequest);
+
+    verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 30);
+    verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 2);
+  }
+
+  @Test
+  public void multiple_ticket_types_should_request_correct_seats_and_cost() {
+
+    TicketTypeRequest adultTicketRequest = new TicketTypeRequest(Type.ADULT, 2);
+    TicketTypeRequest childTicketRequest = new TicketTypeRequest(Type.CHILD, 2);
+    TicketTypeRequest infantTicketRequest = new TicketTypeRequest(Type.INFANT, 1);
+
+    ticketService.purchaseTickets(ACCOUNT_ID, adultTicketRequest, childTicketRequest, infantTicketRequest );
+
+    verify(ticketPaymentService, times(1)).makePayment(ACCOUNT_ID, 60);
+    verify(seatReservationService, times(1)).reserveSeat(ACCOUNT_ID, 4);
   }
 }
